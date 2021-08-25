@@ -41,15 +41,17 @@ def normalize_data(Xtrain, Xtest):
     return Xtrain, Xtest
 
 
-def create_indicator_matrix(Y, K):
+def create_indicator_matrix(Y):
     """
     Takes a vector and one-hot encodes it into an indicator matrix.
     Used to compare with predictions since shape will be different.
     :param Y: Vector of Outputs
     :return: Numpy Matrix
     """
-    Y_ind = np.zeros(len(Y), K)
-    for i in range(len(Y)):
+    N = len(Y)
+    K = len(set(Y))
+    Y_ind = np.zeros(N, K)
+    for i in range(N):
         Y_ind[i, Y[i]] = 1
     return Y_ind
 
