@@ -7,7 +7,7 @@ def get_data():
     Loads the MNIST dataset and separates it into an train and validation sets.
     :return: Train/Validation Input Numpy Matrices & Output Vectors
     """
-    df = pd.read_csv("train.csv")
+    df = pd.read_csv("data/train.csv")
     X_Y = df.to_numpy().astype(np.float32)
     X_Y = shuffle(X_Y)
     Xtrain = X_Y[:-1000, 1:]

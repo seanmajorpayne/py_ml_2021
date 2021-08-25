@@ -1,7 +1,7 @@
 from models.logistic_regression import LogisticRegression
-from loss import Loss
+from utils.loss import Loss
 import matplotlib.pyplot as plt
-from utils import get_data, get_binary_data, normalize_data
+from utils.utils import get_data, get_binary_data, normalize_data
 
 """
 A demonstration of the LogisticRegression Model from the models directory.

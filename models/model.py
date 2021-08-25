@@ -1,6 +1,6 @@
 import numpy as np
-from loss import Loss
-from utils import classification_rate
+from utils.loss import Loss
+from utils.utils import classification_rate
 
 class Model:
     """

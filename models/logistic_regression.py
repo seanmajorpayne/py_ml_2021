@@ -1,8 +1,6 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from utils import *
-from model import Model
-from loss import Loss
+from utils.utils import sigmoid
+from models.model import Model
 
 
 class LogisticRegression(Model):
