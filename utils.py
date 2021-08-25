@@ -9,6 +9,7 @@ def get_data():
     """
     df = pd.read_csv("train.csv")
     X_Y = df.to_numpy().astype(np.float32)
+    X_Y = shuffle(X_Y)
     Xtrain = X_Y[:-1000, 1:]
     Xtest = X_Y[-1000:, 1:]
     Ytrain = X_Y[:-1000, 0]
@@ -59,7 +60,7 @@ def sigmoid(Z):
     :param Z: Numpy Matrix
     :return: Numpy Matrix
     """
-    return 1 / 1 + np.exp(-Z)
+    return 1 / (1 + np.exp(-Z))
 
 
 def softmax(A):
@@ -107,17 +108,6 @@ def forward_ann(X, W1, b1, W2, b2):
     Z = relu(X.dot(W1) + b1)
     Y = softmax(Z.dot(W2) + b2)
     return Y, Z
-
-
-def forward_log_regression(X, W, b):
-    """
-    Runs the activation function for a logistic regression unit.
-    :param X: Input Numpy Matrix
-    :param W: Weights Numpy Matrix
-    :param b: Bias Numpy Array
-    :return: Output Prediction Numpy Matrix
-    """
-    return sigmoid(X.dot(W) + b)
 
 
 def gradient_w2(Z, Y, T):
@@ -173,11 +163,6 @@ def gradient_b1(Z, Y, T, W2):
 
     #Relu
     return ((Y - T).dot(W2.T) * (Z > 0)).sum(axis=0)
-
-
-def cross_entropy_cost(Y, T):
-    total = T * np.log(Y)
-    return total.sum()
 
 
 def classification_rate(Y, T):
