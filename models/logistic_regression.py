@@ -54,27 +54,3 @@ class LogisticRegression(Model):
         self.predictions["Training Predictions"] = p_y_train
         self.predictions["Test Predictions"] = p_y_test
 
-
-def main():
-    # Load in data for classes 0 & 1 and normalize
-    Xtrain, Xtest, Ytrain, Ytest = get_data()
-    Xtrain, Ytrain = get_binary_data(Xtrain, Ytrain)
-    Xtest, Ytest = get_binary_data(Xtest, Ytest)
-    Xtrain, Xtest = normalize_data(Xtrain, Xtest)
-
-    model = LogisticRegression()
-    model.compile(loss=Loss.BCE)
-    model.fit(Xtrain, Ytrain, validation_data=(Xtest, Ytest), epochs=500, learning_rate=0.00001)
-
-    # Plot the costs over training epochs
-    plt.plot(model.history["train_costs"], label="train_costs")
-    plt.plot(model.history["test_costs"], label="test_costs")
-    plt.legend()
-    plt.show()
-
-    # Log the classification rate
-    model.score(Ytrain, Ytest)
-
-
-if __name__ == '__main__':
-    main()
