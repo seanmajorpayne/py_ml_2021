@@ -13,7 +13,7 @@ class Model:
         self.predictions = {}
         pass
 
-    def compile(self, optimizer=None, loss=Loss.RSQUARED):
+    def compile(self, optimizer=None, loss=Loss.MSE):
         self.loss = loss
         pass
 
@@ -30,6 +30,10 @@ class Model:
         """
 
         # Mean Squared Error Standardized
+        if self.loss == Loss.MSE:
+            delta = P - Y
+            return delta.dot(delta)
+
         if self.loss == Loss.RSQUARED:
             ssr = Y - P
             sst = Y - np.mean(Y)
@@ -44,6 +48,14 @@ class Model:
         elif self.loss == Loss.CC:
             total = Y * np.log(P)
             return total.sum()
+
+    def store_costs(self, train_costs, test_costs):
+        self.history["train_costs"] = train_costs
+        self.history["test_costs"] = test_costs
+
+    def store_predictions(self, train_predictions, test_predictions):
+        self.predictions["Training Predictions"] = train_predictions
+        self.predictions["Test Predictions"] = test_predictions
 
     def score(self, y_train, y_test):
         p_train = np.round(self.predictions["Training Predictions"])

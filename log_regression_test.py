@@ -21,7 +21,7 @@ def main():
 
     model = LogisticRegression()
     model.compile(loss=Loss.BCE)
-    model.fit(Xtrain, Ytrain, validation_data=(Xtest, Ytest), epochs=5000, learning_rate=0.00001)
+    model.fit(Xtrain, Ytrain, validation_data=(Xtest, Ytest), epochs=1000, learning_rate=0.00001)
 
     # Plot the costs over training epochs
     plt.plot(model.history["train_costs"], label="train_costs")

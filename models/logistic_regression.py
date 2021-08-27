@@ -47,8 +47,6 @@ class LogisticRegression(Model):
             if i % 500 == 0:
                 print(i, train_cost, test_cost)
 
-        self.history["train_costs"] = train_costs
-        self.history["test_costs"] = test_costs
-        self.predictions["Training Predictions"] = p_y_train
-        self.predictions["Test Predictions"] = p_y_test
+        self.store_costs(train_costs, test_costs)
+        self.store_predictions(p_y_train, p_y_test)
 
