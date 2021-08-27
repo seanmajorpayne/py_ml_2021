@@ -1,6 +1,7 @@
 from enum import Enum
 
 class Loss(Enum):
-    RSQUARED = 0
-    BCE = 1
-    CC = 2
+    MSE = 0
+    RSQUARED = 1
+    BCE = 2
+    CC = 3
