@@ -47,7 +47,7 @@ class Model:
         # Categorical Crossentropy
         elif self.loss == Loss.CC:
             total = Y * np.log(P)
-            return total.sum()
+            return -total.mean()
 
     def store_costs(self, train_costs, test_costs):
         self.history["train_costs"] = train_costs

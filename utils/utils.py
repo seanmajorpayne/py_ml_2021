@@ -196,5 +196,5 @@ def classification_rate(Y, T):
     :param T: Vector of Targets
     :return: Score as float
     """
-    return np.mean(Y == T)
+    return np.mean(np.round(Y) == T)
 
