@@ -49,10 +49,10 @@ def create_indicator_matrix(Y):
     :return: Numpy Matrix
     """
     N = len(Y)
-    K = len(set(Y))
-    Y_ind = np.zeros(N, K)
+    K = len(np.unique(Y))
+    Y_ind = np.zeros((N, K))
     for i in range(N):
-        Y_ind[i, Y[i]] = 1
+        Y_ind[i, int(Y[i])] = 1
     return Y_ind
 
 
@@ -133,6 +133,28 @@ def gradient_b2(Y, T):
     return (Y - T).sum(axis=0)
 
 
+def get_delta(delta, W, Z):
+    """
+    Computes the gradient of the weights for the input layer to hidden layer.
+    :param X: Inputs Numpy Matrix
+    :param Z: Input Layer Activation Numpy Matrix
+    :param Y: Prediction Numpy Matrix
+    :param T: Targets Numpy Matrix
+    :param W2: Hidden to Output Weight Numpy Matrix
+    :return: Gradient Matrix gW1
+    """
+    # Sigmoid/Tanh
+    # return (Y - T).dot(W2.T) * Z * (1 - Z)
+
+    # Relu
+    return delta.dot(W.T) * (Z > 0)
+
+
+def gradient_iw1(delta, W2, Z, X):
+    dZ = (delta).dot(W2.T) * (Z > 0)
+    return X.T.dot(dZ)
+
+
 def gradient_w1(X, Z, Y, T, W2):
     """
     Computes the gradient of the weights for the input layer to hidden layer.
@@ -151,7 +173,7 @@ def gradient_w1(X, Z, Y, T, W2):
     return X.T.dot(dZ)
 
 
-def gradient_b1(Z, Y, T, W2):
+def gradient_b1(Z, delta, W2):
     """
     Computes the gradient of the bias for the hidden layer.
     :param Z: Input Layer Activation Numpy Matrix
@@ -164,7 +186,7 @@ def gradient_b1(Z, Y, T, W2):
     # return ((Y - T).dot(W2.T) * (Z > 0)).sum(axis=0)
 
     #Relu
-    return ((Y - T).dot(W2.T) * (Z > 0)).sum(axis=0)
+    return (delta.dot(W2.T) * (Z > 0)).sum(axis=0)
 
 
 def classification_rate(Y, T):

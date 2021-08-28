@@ -27,7 +27,7 @@ _, D = Xtrain.shape
 
 M = 500
 
-layers = 3
+layers = 4
 L = layers - 1
 
 W = [np.random.randn(M, M) / np.sqrt(M) for i in range(L - 2)]
@@ -39,7 +39,7 @@ b.append(np.zeros(K))
 
 Z = [np.random.randn(1, 1) for i in range(L)]
 
-learning_rate = 10e-8
+learning_rate = 10e-7
 epochs = 500
 costs = []
 reg = 0.001
@@ -66,7 +66,14 @@ for epoch in range(epochs):
     c = cost(Ytrain, pYtrain)
     costs.append(c)
 
-P = np.argmax(pYtrain, axis=1)
+    if epoch % 10 == 0:
+        print(epoch, c)
+
+Ptrain = np.argmax(pYtrain, axis=1)
+print("Number of Hidden Layers used: {}".format(layers - 2))
+print("Number of Nodes per Hidden Layer: {}".format(M))
+print("Learning rate: {}".format(learning_rate))
+print("Regularization: {}".format(reg))
 print("Final train classification rate: {}".format(classification_rate(np.round(P), Ytrain_temp)))
 plt.plot(costs)
 plt.show()
